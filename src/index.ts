@@ -1,9 +1,14 @@
 import './style.css'
 
+const root = document.querySelector<HTMLElement>(':root')!
+const searchParams = new URLSearchParams(location.search)
+const step = Number(searchParams.get('step')) || 3
+const bg = searchParams.get('bg') ?? '000'
+root.style.setProperty('--bg', `#${bg}`)
+
 const app = document.querySelector('#app')!
 const canvas = document.createElement('canvas')
 const ctx = canvas.getContext('2d')!
-const step = 3
 
 const state = {
   hue: 0,
@@ -91,7 +96,7 @@ function onResize() {
 async function loadImage() {
   new Promise<void>((resolve, reject) => {
     const image = new Image()
-    image.src = './dvd.png'
+    image.src = searchParams.get('image') || './dvd.png'
 
     image.onload = () => {
       state.imageX = Math.floor(
