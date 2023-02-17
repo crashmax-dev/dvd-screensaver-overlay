@@ -94,8 +94,12 @@ async function loadImage() {
     image.src = './dvd.png'
 
     image.onload = () => {
-      state.imageX = Math.floor(Math.random() * (state.width - state.image.width))
-      state.imageY = Math.floor(Math.random() * (state.height - state.image.height))
+      state.imageX = Math.floor(
+        Math.random() * (state.width - state.image.width)
+      )
+      state.imageY = Math.floor(
+        Math.random() * (state.height - state.image.height)
+      )
       resolve()
     }
 
