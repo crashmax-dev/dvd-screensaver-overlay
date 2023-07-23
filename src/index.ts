@@ -2,6 +2,7 @@ import './style.css'
 
 const root = document.querySelector<HTMLElement>(':root')!
 const searchParams = new URLSearchParams(location.search)
+const sizes = searchParams.get('sizes')?.split(',').map(Number)
 const step = Number(searchParams.get('step')) || 3
 const bg = searchParams.get('bg') ?? '000'
 root.style.setProperty('--bg', `#${bg}`)
@@ -95,10 +96,15 @@ function onResize() {
 
 async function loadImage() {
   new Promise<void>((resolve, reject) => {
-    const image = new Image()
-    image.src = searchParams.get('image') || './dvd.png'
+    state.image.src = searchParams.get('image') || './dvd.png'
 
-    image.onload = () => {
+    if (sizes) {
+      const [height, width] = sizes
+      state.image.height = height
+      state.image.width = width
+    }
+
+    state.image.onload = () => {
       state.imageX = Math.floor(
         Math.random() * (state.width - state.image.width)
       )
@@ -108,11 +114,9 @@ async function loadImage() {
       resolve()
     }
 
-    image.onerror = (err) => {
+    state.image.onerror = (err) => {
       reject(err)
     }
-
-    state.image = image
   })
 }
 

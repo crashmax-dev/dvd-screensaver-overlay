@@ -1,5 +1,6 @@
 node_modules
 dist
+public
 build
 logs
 coverage
@@ -19,6 +20,5 @@ coverage
 *rc.*
 *.htm
 *.html
-*.json
 *.md
 .*ignore
